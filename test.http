@@ -1,0 +1,47 @@
+
+# POST http://localhost:5000/api/auth/authenticate
+# Content-Type: application/json
+
+# {
+#     "Login": "Corolla",
+#     "Password": "Corolla123"
+# }
+
+
+#  GET http://localhost:5000/api/categories
+#  Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IlRveW90YSIsIm5iZiI6MTU4NTM4MDk5NCwiZXhwIjoxNTg1MzgxNTk0LCJpYXQiOjE1ODUzODA5OTR9.QFGaVWGg08gFteelHhz7NAv9A2_SFge4wjoVdkXmBTY
+
+
+
+
+# POST http://localhost:5000/api/categories
+# Content-Type: application/json
+
+# {
+#     "Name": "Printer"
+# }
+
+
+# PUT http://localhost:5000/api/categories/10000
+# Content-Type: application/json
+
+# {
+#     "Name": "Laptop"
+# }
+
+# POST http://localhost:5000/api/roles
+# Content-Type: application/json
+
+# {
+#     "Name": "bad_corolla_driver"
+# }
+
+ GET http://localhost:5000/api/users
+
+# DELETE http://localhost:5000/api/userroles
+# Content-Type: application/json
+
+# {
+#     "UserId": 777,
+#     "RoleId": 1005
+# }
