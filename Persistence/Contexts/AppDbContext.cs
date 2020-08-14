@@ -7,6 +7,7 @@ namespace Shop.API.Persistence.Contexts
     public class AppDbContext : DbContext
     {
         public DbSet<User> Users { get; set; }
+        public DbSet<Admin> Admins { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Good> Goods { get; set; }
         public DbSet<Role> Roles { get; set; }
@@ -32,6 +33,22 @@ namespace Shop.API.Persistence.Contexts
 
             #endregion
 
+
+            #region Admins
+
+            builder.Entity<Admin>().ToTable("Admins");
+            builder.Entity<Admin>().HasKey(x => x.Id);
+            builder.Entity<Admin>().Property(x => x.Id).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<Admin>().Property(x => x.Firstname).IsRequired().HasMaxLength(30);
+            builder.Entity<Admin>().Property(x => x.Lastname).IsRequired().HasMaxLength(30);
+            builder.Entity<Admin>().Property(x => x.Login).IsRequired().HasMaxLength(30);
+            builder.Entity<Admin>().HasAlternateKey(x => x.Login);
+            builder.Entity<Admin>().Property(x => x.Password).IsRequired().HasMaxLength(30);
+            builder.Entity<Admin>().HasMany(x => x.UserRoles).WithOne(x => x.User);
+
+            #endregion
+
+
             #region Roles
 
             builder.Entity<Role>().ToTable("Roles");
@@ -39,21 +56,21 @@ namespace Shop.API.Persistence.Contexts
             builder.Entity<Role>().Property(x => x.Id).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<Role>().Property(x => x.Name).IsRequired();
             builder.Entity<Role>().HasMany(x => x.UserRoles).WithOne(x => x.Role);
-                      
+
             #endregion
 
             #region UserRoles
 
             builder.Entity<UserRole>().ToTable("UserRoles");
-            builder.Entity<UserRole>().HasKey(x => new {x.RoleId, x.UserId});
+            builder.Entity<UserRole>().HasKey(x => new { x.RoleId, x.UserId });
 
             #endregion
 
             builder.Entity<Role>().HasData
             (
-                new Role {Id = 1000, Name = "corolla_driver"},
-                new Role {Id = 1005, Name = "forever_corolla_driver"},
-                new Role {Id = 1001, Name = "lexus_driver"}
+                new Role { Id = 1000, Name = "driver" },
+                new Role { Id = 1005, Name = "BigBoss" },
+                new Role { Id = 1001, Name = "lexus" }
             );
 
 
@@ -62,26 +79,26 @@ namespace Shop.API.Persistence.Contexts
                 new User
                 {
                     Id = 777,
-                    Firstname = "Людмила",
-                    Lastname = "Богданова",
-                    Login = "Corolla",
-                    Password = "Corolla123"
+                    Firstname = "Кравец",
+                    Lastname = "Ростислав",
+                    Login = "driver",
+                    Password = "driver"
                 },
                 new User
                 {
                     Id = 666,
-                    Firstname = "Дмитрий",
-                    Lastname = "Евгеньевич",
+                    Firstname = "Гурич",
+                    Lastname = "Виталий",
                     Login = "lexus",
-                    Password = "lexusbetterthancorolla"
+                    Password = "lexus"
                 }
             );
 
             builder.Entity<UserRole>().HasData
             (
-                new UserRole {UserId = 777, RoleId = 1000},
-                new UserRole {UserId = 666, RoleId = 1001},
-                new UserRole {UserId = 777, RoleId = 1005}
+                new UserRole { UserId = 777, RoleId = 1000 },
+                new UserRole { UserId = 666, RoleId = 1001 },
+                new UserRole { UserId = 777, RoleId = 1005 }
             );
 
 
