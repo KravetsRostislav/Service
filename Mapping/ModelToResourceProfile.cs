@@ -12,6 +12,8 @@ namespace Shop.API.Mapping
             CreateMap<Category, CategoryResource>();
             CreateMap<User, UserResource>()
                 .ForMember(dest => dest.Role, src => src.MapFrom(x => x.UserRoles.Select(y => y.Role.Name)));
+            CreateMap<Admin, UserResource>()
+                .ForMember(dest => dest.Role, src => src.MapFrom(x => x.AdminRoles.Select(y => y.Role.Name)));
             CreateMap<Role, RoleResource>();
         }
     }
